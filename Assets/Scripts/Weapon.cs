@@ -1,8 +1,12 @@
 using StarterAssets;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.XR;
 
 public class Weapon : MonoBehaviour
 {
+    [SerializeField] int damageAmount = 1;
+
     StarterAssetsInputs starterAssetsInputs;
 
     void Awake()
@@ -12,15 +16,21 @@ public class Weapon : MonoBehaviour
 
     void Update()
     {
-        if (starterAssetsInputs.shoot)
-        {
-            RaycastHit hit;
+        HandleShoot();
+    }
 
-            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, Mathf.Infinity))
-            {
-                Debug.Log(hit.collider.name);
-                starterAssetsInputs.ShootInput(false);
-            }
+    private void HandleShoot()
+    {
+        if (!starterAssetsInputs.shoot) return;
+
+        RaycastHit hit;
+
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, Mathf.Infinity))
+        {
+            EnemyHP enemyHP = hit.collider.GetComponent<EnemyHP>();
+            enemyHP?.TakeDamage(damageAmount);
+
+            starterAssetsInputs.ShootInput(false);
         }
     }
 }
