@@ -1,4 +1,5 @@
 using StarterAssets;
+using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.XR;
@@ -6,10 +7,14 @@ using UnityEngine.XR;
 public class Weapon : MonoBehaviour
 {
     [Header("References")]
+    [SerializeField] GameObject hitVFXPrefab;
     [SerializeField] ParticleSystem muzzleFlash;
+    [SerializeField] Animator animator;
 
     [Header("Settings")]
     [SerializeField] int damageAmount = 1;
+
+    const string SHOOT_STRING = "Shooting";
 
     StarterAssetsInputs starterAssetsInputs;
 
@@ -28,15 +33,19 @@ public class Weapon : MonoBehaviour
         if (!starterAssetsInputs.shoot) return;
 
         muzzleFlash.Play();
+        animator.Play(SHOOT_STRING, 0, 0f);
+
+        starterAssetsInputs.ShootInput(false);
 
         RaycastHit hit;
 
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, Mathf.Infinity))
         {
+            // Create shoot particle effect on the surface that the ray hits
+            Instantiate(hitVFXPrefab, hit.point, quaternion.identity);
+
             EnemyHP enemyHP = hit.collider.GetComponent<EnemyHP>();
             enemyHP?.TakeDamage(damageAmount);
-
-            starterAssetsInputs.ShootInput(false);
         }
     }
 }
