@@ -14,7 +14,7 @@ public class Weapon : MonoBehaviour
     [Header("Settings")]
     [SerializeField] int damageAmount = 1;
 
-    const string SHOOT_STRING = "Shooting";
+    const string SHOOT_STRING = "Shoot";
 
     StarterAssetsInputs starterAssetsInputs;
 
