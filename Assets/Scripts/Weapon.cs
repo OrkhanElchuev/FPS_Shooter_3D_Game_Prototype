@@ -5,6 +5,10 @@ using UnityEngine.XR;
 
 public class Weapon : MonoBehaviour
 {
+    [Header("References")]
+    [SerializeField] ParticleSystem muzzleFlash;
+
+    [Header("Settings")]
     [SerializeField] int damageAmount = 1;
 
     StarterAssetsInputs starterAssetsInputs;
@@ -22,6 +26,8 @@ public class Weapon : MonoBehaviour
     private void HandleShoot()
     {
         if (!starterAssetsInputs.shoot) return;
+
+        muzzleFlash.Play();
 
         RaycastHit hit;
 
