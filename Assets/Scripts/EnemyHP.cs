@@ -2,16 +2,16 @@ using UnityEngine;
 
 public class EnemyHP : MonoBehaviour
 {
-    [SerializeField] int startHP = 5;
+    [SerializeField] float startHP = 5f;
 
-    int currentHP;
+    float currentHP;
 
     void Awake()
     {
         currentHP = startHP;
     }
 
-    public void TakeDamage(int amount)
+    public void TakeDamage(float amount)
     {
         currentHP -= amount;
 
