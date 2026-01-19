@@ -7,12 +7,10 @@ using UnityEngine.XR;
 public class Weapon : MonoBehaviour
 {
     [Header("References")]
+    [SerializeField] WeaponSO weaponSO;
     [SerializeField] GameObject hitVFXPrefab;
     [SerializeField] ParticleSystem muzzleFlash;
     [SerializeField] Animator animator;
-
-    [Header("Settings")]
-    [SerializeField] int damageAmount = 1;
 
     const string SHOOT_STRING = "Shoot";
 
@@ -45,7 +43,7 @@ public class Weapon : MonoBehaviour
             Instantiate(hitVFXPrefab, hit.point, quaternion.identity);
 
             EnemyHP enemyHP = hit.collider.GetComponent<EnemyHP>();
-            enemyHP?.TakeDamage(damageAmount);
+            enemyHP?.TakeDamage(weaponSO.Damage);
         }
     }
 }
