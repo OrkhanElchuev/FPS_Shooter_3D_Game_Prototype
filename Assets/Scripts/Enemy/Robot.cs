@@ -7,6 +7,8 @@ public class Robot : MonoBehaviour
     FirstPersonController player;    
     NavMeshAgent agent;
 
+    const string PLAYER_STRING = "Player";
+
     void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -19,6 +21,16 @@ public class Robot : MonoBehaviour
 
     void Update()
     {
+        if (!player) return;
         agent.SetDestination(player.transform.position);       
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag(PLAYER_STRING))
+        {
+            EnemyHP enemyHP = GetComponent<EnemyHP>();
+            enemyHP.SelfDestruct();
+        }
     }
 }
