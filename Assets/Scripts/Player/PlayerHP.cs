@@ -9,7 +9,7 @@ public class PlayerHP : MonoBehaviour
     [SerializeField] Transform weaponCamera;
     [SerializeField] TMP_Text healthText; 
 
-    [Range(1, 100)]
+    [Range(1, 100000)]
     [SerializeField] int startHP = 10;
 
     float currentHP;

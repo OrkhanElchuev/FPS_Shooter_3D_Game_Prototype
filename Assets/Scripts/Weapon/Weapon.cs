@@ -27,8 +27,8 @@ public class Weapon : MonoBehaviour
         {
             // Create shoot particle effect on the surface that the ray hits
             Instantiate(weaponSO.HitVFXPrefab, hit.point, Quaternion.identity);
-            EnemyHP enemyHP = hit.collider.GetComponent<EnemyHP>();
-            enemyHP?.TakeDamage(weaponSO.Damage);
+            var damageable = hit.collider.GetComponentInParent<IDamageable>();
+            damageable?.TakeDamage(weaponSO.Damage);
         }
     }
 }
