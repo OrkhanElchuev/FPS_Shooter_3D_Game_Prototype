@@ -214,6 +214,7 @@ GameObject:
   - component: {fileID: 2181182249235229571}
   - component: {fileID: 7219068503435990525}
   - component: {fileID: 728878745186049064}
+  - component: {fileID: 6102164590070715814}
   m_Layer: 3
   m_Name: PlayerCapsule
   m_TagString: Player
@@ -428,6 +429,19 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &6102164590070715814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7710967409179903529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f6a46868f97650439afc6f2f03cc991, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHP
+  startHP: 10
 --- !u!1 &8208413796476212431
 GameObject:
   m_ObjectHideFlags: 0
