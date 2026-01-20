@@ -1,26 +1,33 @@
+using Cinemachine;
 using StarterAssets;
-using Unity.Mathematics;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.XR;
+
 
 public class ActiveWeapon : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] WeaponSO weaponSO;
-
-    const string SHOOT_STRING = "Shoot";
+    [SerializeField] CinemachineVirtualCamera playerFollowCamera;
+    [SerializeField] GameObject zoomEffectVignette;
 
     Animator animator;
     StarterAssetsInputs starterAssetsInputs;
     Weapon currentWeapon;
+    FirstPersonController firstPersonController;
+
+    const string SHOOT_STRING = "Shoot";
 
     float timeSinceLastShot = 0f;
+    float defaultFOV;
+    float defaultRotationSpeed;
 
     void Awake()
     {
         starterAssetsInputs = GetComponentInParent<StarterAssetsInputs>();
-        animator = GetComponent<Animator>();    
+        firstPersonController = GetComponentInParent<FirstPersonController>();
+        animator = GetComponent<Animator>();
+        defaultFOV = playerFollowCamera.m_Lens.FieldOfView;
+        defaultRotationSpeed = firstPersonController.RotationSpeed;
     }
 
     void Start()
@@ -30,8 +37,8 @@ public class ActiveWeapon : MonoBehaviour
 
     void Update()
     {
-        timeSinceLastShot += Time.deltaTime;
         HandleShoot();
+        HandleZoom();
     }
 
     public void SwitchWeapon(WeaponSO weaponSO)
@@ -48,6 +55,8 @@ public class ActiveWeapon : MonoBehaviour
 
     private void HandleShoot()
     {
+        timeSinceLastShot += Time.deltaTime;
+
         if (!starterAssetsInputs.shoot) return;
 
         if (timeSinceLastShot >= weaponSO.FireRate)
@@ -60,6 +69,24 @@ public class ActiveWeapon : MonoBehaviour
         if (!weaponSO.IsAutomatic)
         {
             starterAssetsInputs.ShootInput(false);
+        }
+    }
+
+    private void HandleZoom()
+    {
+        if (!weaponSO.CanZoom) return;
+
+        if (starterAssetsInputs.zoom)
+        {
+            playerFollowCamera.m_Lens.FieldOfView = weaponSO.ZoomAmount;
+            zoomEffectVignette.SetActive(true);
+            firstPersonController.ChangeRotationSpeed(weaponSO.zoomRotationSpeed);
+        }
+        else
+        {
+            playerFollowCamera.m_Lens.FieldOfView = defaultFOV;
+            zoomEffectVignette.SetActive(false);
+            firstPersonController.ChangeRotationSpeed(defaultRotationSpeed);
         }
     }
 }

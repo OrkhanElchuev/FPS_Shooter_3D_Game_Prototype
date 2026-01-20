@@ -12,5 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 978534d418d9d00488954e222710b8e2, type: 3}
   m_Name: Sniper
   m_EditorClassIdentifier: Assembly-CSharp::WeaponSO
+  weaponPrefab: {fileID: 3787364064105354364, guid: 7b1dc214b11331c4298eb1fe5ff14344, type: 3}
   Damage: 8
   FireRate: 1.5
+  HitVFXPrefab: {fileID: 8150784001174661934, guid: a8c58e3d5903638428e8a0274233baa8, type: 3}
+  IsAutomatic: 0
+  CanZoom: 1
+  ZoomAmount: 10
