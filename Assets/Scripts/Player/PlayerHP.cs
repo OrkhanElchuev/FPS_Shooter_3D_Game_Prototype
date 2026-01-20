@@ -1,4 +1,5 @@
 using Cinemachine;
+using TMPro;
 using UnityEngine;
 
 public class PlayerHP : MonoBehaviour
@@ -6,22 +7,25 @@ public class PlayerHP : MonoBehaviour
     [Header("References")]
     [SerializeField] CinemachineVirtualCamera deathVirtualCamera;
     [SerializeField] Transform weaponCamera;
+    [SerializeField] TMP_Text healthText; 
 
-    [SerializeField] float startHP = 10f;
+    [Range(1, 100)]
+    [SerializeField] int startHP = 10;
 
     float currentHP;
+    float minHP = 0f;
     int deathVirtualCameraPriority = 20;
 
     void Awake()
     {
         currentHP = startHP;
+        AdjustHealthText();
     }
 
-    public void TakeDamage(float amount)
+    public void TakeDamage(int amount)
     {
         currentHP -= amount; 
-        
-        Debug.Log(amount + " damage taken");
+        AdjustHealthText();
 
         if (currentHP <= 0)
         {
@@ -30,4 +34,16 @@ public class PlayerHP : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+
+    void AdjustHealthText()
+    {
+        if (currentHP < 0)
+        {
+            currentHP = minHP;
+        }
+
+        healthText.text = currentHP.ToString();
+    }
 }
+
+

@@ -3,10 +3,13 @@ using UnityEngine.Rendering;
 
 public class ExplosionDamage : MonoBehaviour
 {
+    [Header("Explosion Settings")]
     [SerializeField] float radius = 1.5f;
-    [SerializeField] float damage = 3f;
-    
+    [SerializeField] int maxDamage = 30;
+    [SerializeField] int minDamage = 10;
 
+    bool didExplode;
+    
     void Update()
     {
         OnExplodeDamage();
@@ -21,7 +24,12 @@ public class ExplosionDamage : MonoBehaviour
 
     void OnExplodeDamage()
     {
+        if (didExplode) return;
+        didExplode = true;
+
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius);
+
+        int randomDamage = Random.Range(minDamage, maxDamage + 1);
 
         foreach (Collider hitCollider in hitColliders)
         {
@@ -29,9 +37,11 @@ public class ExplosionDamage : MonoBehaviour
 
             if (!playerHP) continue;
 
-            playerHP.TakeDamage(damage);
+            playerHP.TakeDamage(randomDamage);
 
             break;
         }
+
+        enabled = false;
     }
 }

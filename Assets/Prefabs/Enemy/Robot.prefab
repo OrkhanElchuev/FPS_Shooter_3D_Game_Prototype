@@ -175,7 +175,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHP
   robotExplosionVFX: {fileID: 5247141427599450914, guid: 9ca2bc60300098f4fab1d99cd5ebbc27, type: 3}
-  startHP: 5
+  startHP: 100
 --- !u!136 &7449331496774338688
 CapsuleCollider:
   m_ObjectHideFlags: 0
