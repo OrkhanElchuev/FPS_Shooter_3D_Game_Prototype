@@ -389,8 +389,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8255361412936680465}
-  - component: {fileID: 5485436721420252317}
   - component: {fileID: 7475301354219201619}
+  - component: {fileID: -3768288122515790125}
   m_Layer: 0
   m_Name: Turret
   m_TagString: Untagged
@@ -414,20 +414,6 @@ Transform:
   - {fileID: 163938979371780165}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5485436721420252317
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9213709798944960372}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5d2ac58c77a78e48bb68479e732c989, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyHP
-  objectExplosionVFX: {fileID: 5247141427599450914, guid: 9ca2bc60300098f4fab1d99cd5ebbc27, type: 3}
-  startHP: 250
 --- !u!114 &7475301354219201619
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -446,3 +432,17 @@ MonoBehaviour:
   projectileSpawnPoint: {fileID: 4437070310740159948}
   fireRate: 3
   damage: 2
+--- !u!114 &-3768288122515790125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9213709798944960372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dd0a5392ae00604c9ebebdbc371578f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DestructibleHP
+  explosionVFX: {fileID: 5247141427599450914, guid: 9ca2bc60300098f4fab1d99cd5ebbc27, type: 3}
+  startHP: 200

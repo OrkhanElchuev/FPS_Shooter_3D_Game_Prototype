@@ -3,7 +3,10 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class EnemyHP : MonoBehaviour, IDamageable
 {
+    [Header("References")]
     [SerializeField] GameObject objectExplosionVFX;
+
+    [Header("Enemy Settings")]
     [SerializeField] int startHP = 5;
 
     bool registered;
@@ -23,12 +26,17 @@ public class EnemyHP : MonoBehaviour, IDamageable
 
     public void SelfDestruct()
     {
-        Instantiate(objectExplosionVFX, transform.position, Quaternion.identity);
+        if (objectExplosionVFX != null)
+        {
+            Instantiate(objectExplosionVFX, transform.position, Quaternion.identity); 
+        }
+
         Destroy(gameObject);
     }
 
     void RegisterThisEnemy()
     {
+        if (registered) return;
         registered = true;
         EnemyManager.RegisterEnemy();
     }
