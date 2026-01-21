@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
@@ -9,6 +10,8 @@ public class EnemyManager : MonoBehaviour
 
     public static int AliveEnemies { get; private set; }
     public static int MaxEnemies { get; private set; } = 15; // fallback default
+
+    public static event Action<int> OnEnemyCountChanged;
 
     private void Awake() 
     {
@@ -24,6 +27,8 @@ public class EnemyManager : MonoBehaviour
         MaxEnemies = maxEnemies;
         // Make sure to start with fresh values each play session
         AliveEnemies = 0;
+
+        OnEnemyCountChanged?.Invoke(AliveEnemies);
     }
 
     public static bool CanSpawn() => AliveEnemies < MaxEnemies;
@@ -32,12 +37,13 @@ public class EnemyManager : MonoBehaviour
     public static void RegisterEnemy()
     {
         AliveEnemies++;
-        Debug.Log($"REGISTER -> Alive={AliveEnemies} (Max={MaxEnemies})");
+        OnEnemyCountChanged?.Invoke(AliveEnemies);
     }
     public static void UnregisterEnemy()
     {
         AliveEnemies--;
         if (AliveEnemies < 0) AliveEnemies = 0;
+        OnEnemyCountChanged?.Invoke(AliveEnemies);
     }
 }
 

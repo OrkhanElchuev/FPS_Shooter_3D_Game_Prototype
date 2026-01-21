@@ -17,6 +17,16 @@ public class SpawnEnemy : MonoBehaviour
         StartCoroutine(SpawnRoutine());
     }
 
+    void Awake()
+    {
+        GameManager.RegisterSpawner();
+    }
+
+    void OnDestroy()
+    {
+        GameManager.UnregisterSpawner();
+    }
+
     IEnumerator SpawnRoutine()
     {
         while (player && this)
