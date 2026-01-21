@@ -1,4 +1,5 @@
 using Cinemachine;
+using StarterAssets;
 using TMPro;
 using UnityEngine;
 
@@ -40,6 +41,8 @@ public class PlayerHP : MonoBehaviour
         weaponCamera.parent = null;
         deathVirtualCamera.Priority = deathVirtualCameraPriority;
         gameOverContainer.SetActive(true);
+        StarterAssetsInputs starterAssetsInputs = FindFirstObjectByType<StarterAssetsInputs>();
+        starterAssetsInputs.SetCursorState(false);
         Destroy(this.gameObject);
     }
 
