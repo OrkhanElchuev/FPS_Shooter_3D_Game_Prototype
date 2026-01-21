@@ -8,7 +8,9 @@ public class PlayerHP : MonoBehaviour
     [SerializeField] CinemachineVirtualCamera deathVirtualCamera;
     [SerializeField] Transform weaponCamera;
     [SerializeField] TMP_Text healthText; 
+    [SerializeField] GameObject gameOverContainer;
 
+    [Header("Player Settings")]
     [Range(1, 1000)]
     [SerializeField] int startHP = 10;
 
@@ -29,10 +31,16 @@ public class PlayerHP : MonoBehaviour
 
         if (currentHP <= 0)
         {
-            weaponCamera.parent = null;
-            deathVirtualCamera.Priority = deathVirtualCameraPriority;
-            Destroy(this.gameObject);
+            PlayerGameOver();
         }
+    }
+
+    void PlayerGameOver()
+    {
+        weaponCamera.parent = null;
+        deathVirtualCamera.Priority = deathVirtualCameraPriority;
+        gameOverContainer.SetActive(true);
+        Destroy(this.gameObject);
     }
 
     void AdjustHealthText()
