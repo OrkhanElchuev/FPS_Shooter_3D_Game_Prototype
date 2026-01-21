@@ -3,7 +3,7 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class EnemyHP : MonoBehaviour, IDamageable
 {
-    [SerializeField] GameObject robotExplosionVFX;
+    [SerializeField] GameObject objectExplosionVFX;
     [SerializeField] int startHP = 5;
 
     bool registered;
@@ -23,7 +23,7 @@ public class EnemyHP : MonoBehaviour, IDamageable
 
     public void SelfDestruct()
     {
-        Instantiate(robotExplosionVFX, transform.position, Quaternion.identity);
+        Instantiate(objectExplosionVFX, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 
