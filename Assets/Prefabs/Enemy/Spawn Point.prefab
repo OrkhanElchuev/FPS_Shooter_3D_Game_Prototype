@@ -102,7 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SpawnEnemy
   robotPrefab: {fileID: 9110357853164184947, guid: 325896f01587b284d9f076c2c1c47841, type: 3}
   spawnPoint: {fileID: 289380297448127234}
-  spawnTime: 5
+  spawnTime: 6
 --- !u!114 &8168263694558994549
 MonoBehaviour:
   m_ObjectHideFlags: 0
