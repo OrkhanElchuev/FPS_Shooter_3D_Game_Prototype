@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
 
     const string ENEMIES_LEFT_STRING = "Enemies Left: ";
 
+    public static int ActiveSpawners { get; private set; }
+
     void OnEnable()
     {
         EnemyManager.OnEnemyCountChanged += UpdateEnemiesText;
@@ -24,14 +26,26 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        youWinText.SetActive(false);
         UpdateEnemiesText(EnemyManager.AliveEnemies);
+    }
+
+    public static void RegisterSpawner()
+    {
+        ActiveSpawners++;
+    }
+
+    public static void UnregisterSpawner()
+    {
+        ActiveSpawners--;
+        ActiveSpawners = Mathf.Max(ActiveSpawners, 0);
     }
 
     void UpdateEnemiesText(int aliveEnemies)
     {
         enemiesLeftText.text = ENEMIES_LEFT_STRING + aliveEnemies;
 
-        if (aliveEnemies <= 0)
+        if (aliveEnemies <= 0 && ActiveSpawners <= 0)
         {
             youWinText.SetActive(true);
         }
