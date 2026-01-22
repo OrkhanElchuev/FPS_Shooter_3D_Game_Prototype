@@ -1,5 +1,10 @@
 using UnityEngine;
 
+/// <summary>
+/// ScriptableObject defining a weapon's static data such as damage,
+/// fire rate, magazine size, zoom behavior, and associated prefabs.
+/// </summary>
+
 [CreateAssetMenu(fileName = "WeaponSO", menuName = "Scriptable Objects/WeaponSO")] 
 public class WeaponSO : ScriptableObject
 {

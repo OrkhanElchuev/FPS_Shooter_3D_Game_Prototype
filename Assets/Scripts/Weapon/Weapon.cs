@@ -2,6 +2,11 @@ using System;
 using Cinemachine;
 using UnityEngine;
 
+/// <summary>
+/// Handles the firing logic of a weapon, including raycast hit detection,
+/// spawning hit effects, camera impulse, and applying damage to valid targets.
+/// </summary>
+
 public class Weapon : MonoBehaviour
 {
     [Header("References")]
