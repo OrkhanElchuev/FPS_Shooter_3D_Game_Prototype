@@ -15,7 +15,7 @@ public class Turret : MonoBehaviour
     [SerializeField] int damage = 2;
 
     PlayerHP player;
-
+    
     void Start()
     {
         player = FindFirstObjectByType<PlayerHP>();
@@ -24,12 +24,15 @@ public class Turret : MonoBehaviour
 
     void Update()
     {
+        // Player destroyed? stop using its target point
+        if (!player || playerTargetPoint == null) return;
+
         turretHead.LookAt(playerTargetPoint.position);
     }
 
     IEnumerator ShootRoutine()
     {
-        while (player)
+        while (player && playerTargetPoint != null)
         {
             yield return new WaitForSeconds(fireRate);
             Projectile newProjectile = Instantiate(projectilePrefab, projectileSpawnPoint.position, 
