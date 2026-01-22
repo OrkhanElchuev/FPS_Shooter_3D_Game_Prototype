@@ -1,3 +1,4 @@
+using StarterAssets;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -15,10 +16,18 @@ public class GameManager : MonoBehaviour
     [Header("References")]
     [Tooltip("UI text displaying enemies alive.")]
     [SerializeField] TMP_Text enemiesLeftText;
-    [Tooltip("UI element shown when the win condition is met.")]
-    [SerializeField] GameObject youWinText;
+    [Tooltip("UI Container shown when the win condition is met.")]
+    [SerializeField] GameObject winContainer;
+
+    [Header("Win Settings")]
+    [Tooltip("Time scale applied after winning (0 = freeze, 0.2 = slow motion).")]
+    [Range(0f, 1f)]
+    [SerializeField] float winTimeScale = 0.2f;
 
     const string ENEMIES_LEFT_STRING = "Enemies Left: ";
+
+    bool hasWon;
+    bool hasLost;
 
     // Number of currently active spawners. SpawnEnemy registers/unregisters.
     public static int ActiveSpawners { get; private set; }
@@ -26,7 +35,9 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         instance = this;
+        Time.timeScale = 1f;
     }
+
     void OnEnable()
     {
         // Subscribe UI to enemy count updates.
@@ -42,11 +53,24 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         // Hide win UI at start.
-        youWinText.SetActive(false);
+        winContainer.SetActive(false);
 
         // Initialize UI display with current enemy count.
         UpdateEnemiesText(EnemyManager.AliveEnemies);
         CheckWinCondition();
+    }
+
+    public void TriggerLose()
+    {
+        if (hasWon || hasLost) return;
+        hasLost = true;
+    }
+
+    public void TriggerWin()
+    {
+        if (hasWon || hasLost) return;
+        hasWon = true;
+        OnWin(); 
     }
 
     public static void RegisterSpawner()
@@ -64,11 +88,31 @@ public class GameManager : MonoBehaviour
 
     void CheckWinCondition()
     {
+        if (hasWon || hasLost) return;
+
         // Win only when no enemies AND no spawners remain.
         if (EnemyManager.AliveEnemies <= 0 && ActiveSpawners <= 0)
         {
-            youWinText.SetActive(true);
+            TriggerWin();
         }
+    }
+
+    void OnWin()
+    {
+        if (winContainer != null) winContainer.SetActive(true);
+
+        // Slow down time.
+        Time.timeScale = winTimeScale;
+        // Physics Consistency after slow down.
+        Time.fixedDeltaTime = 0.02f * Time.timeScale;
+
+        // Unlock cursor so UI buttons can be clicked.
+        var inputs = FindFirstObjectByType<StarterAssetsInputs>();
+        if (inputs != null) inputs.SetCursorState(false);
+
+        // Unlock cursor for UI.
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     void UpdateEnemiesText(int aliveEnemies)
@@ -80,8 +124,11 @@ public class GameManager : MonoBehaviour
 
     public void RestartLevelButton()
     {
-        int currentScene = SceneManager.GetActiveScene().buildIndex;
-        SceneManager.LoadScene(currentScene);
+        // Reset time before reloading
+        Time.timeScale = 1f;
+        Time.fixedDeltaTime = 0.02f;
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void QuitButton()

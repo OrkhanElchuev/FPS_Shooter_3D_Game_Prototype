@@ -52,6 +52,9 @@ public class PlayerHP : MonoBehaviour
     // Handles death camera switch, UI, cursor unlock and destroys player object.
     void PlayerGameOver()
     {
+        // Inform GameManager about Lose Condition.
+        FindFirstObjectByType<GameManager>()?.TriggerLose();
+
         // Detach weapon camera.
         weaponCamera.parent = null;
 
