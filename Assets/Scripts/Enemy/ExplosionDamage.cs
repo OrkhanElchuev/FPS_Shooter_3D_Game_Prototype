@@ -5,8 +5,8 @@ public class ExplosionDamage : MonoBehaviour
 {
     [Header("Explosion Settings")]
     [SerializeField] float radius = 1.5f;
-    [SerializeField] int maxDamage = 30;
-    [SerializeField] int minDamage = 10;
+    [SerializeField] int maxDamage = 20;
+    [SerializeField] int minDamage = 9;
 
     bool didExplode;
     

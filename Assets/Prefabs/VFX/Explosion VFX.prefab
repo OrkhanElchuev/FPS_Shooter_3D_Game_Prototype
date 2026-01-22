@@ -9550,4 +9550,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExplosionDamage
   radius: 1.5
-  damage: 20
+  maxDamage: 20
+  minDamage: 8

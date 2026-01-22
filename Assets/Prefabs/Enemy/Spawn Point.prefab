@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 4056585509248388059}
   - component: {fileID: 4514614520017804093}
   - component: {fileID: 101506127884132394}
-  - component: {fileID: 8168263694558994549}
+  - component: {fileID: 5264659599659741736}
   m_Layer: 0
   m_Name: Spawn Point
   m_TagString: Untagged
@@ -103,7 +103,7 @@ MonoBehaviour:
   robotPrefab: {fileID: 9110357853164184947, guid: 325896f01587b284d9f076c2c1c47841, type: 3}
   spawnPoint: {fileID: 289380297448127234}
   spawnTime: 6
---- !u!114 &8168263694558994549
+--- !u!114 &5264659599659741736
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -112,10 +112,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1441225249955222306}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39cacb90d0dd776448da1f7e7ece77ce, type: 3}
+  m_Script: {fileID: 11500000, guid: 1dd0a5392ae00604c9ebebdbc371578f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SpawnerHP
-  spawnerExplosionVFX: {fileID: 5247141427599450914, guid: 9ca2bc60300098f4fab1d99cd5ebbc27, type: 3}
+  m_EditorClassIdentifier: Assembly-CSharp::DestructibleHP
+  explosionVFX: {fileID: 5247141427599450914, guid: 9ca2bc60300098f4fab1d99cd5ebbc27, type: 3}
   startHP: 400
 --- !u!1 &3583959325491999634
 GameObject:
