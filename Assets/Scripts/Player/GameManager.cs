@@ -31,10 +31,13 @@ public class GameManager : MonoBehaviour
 
     // Number of currently active spawners. SpawnEnemy registers/unregisters.
     public static int ActiveSpawners { get; private set; }
+    // True once the game has reached a terminal state (Win or Loss).
+    public static bool IsGameEnded { get; private set; }
 
     void Awake()
     {
         instance = this;
+        IsGameEnded = false;
         Time.timeScale = 1f;
     }
 
@@ -64,6 +67,7 @@ public class GameManager : MonoBehaviour
     {
         if (hasWon || hasLost) return;
         hasLost = true;
+        IsGameEnded = true;
     }
 
     public void TriggerWin()
@@ -99,6 +103,9 @@ public class GameManager : MonoBehaviour
 
     void OnWin()
     {
+        IsGameEnded = true;
+        hasWon = true;
+
         if (winContainer != null) winContainer.SetActive(true);
 
         // Slow down time.

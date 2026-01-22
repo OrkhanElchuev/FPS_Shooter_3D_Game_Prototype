@@ -64,7 +64,12 @@ public class PlayerHP : MonoBehaviour
         
         // Unlock cursor for menus.
         StarterAssetsInputs starterAssetsInputs = FindFirstObjectByType<StarterAssetsInputs>();
-        starterAssetsInputs.SetCursorState(false);
+        if (starterAssetsInputs != null)
+            starterAssetsInputs.SetCursorState(false);
+
+        // Force cursor for Game Over UI.
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
 
         Destroy(this.gameObject);
     }
