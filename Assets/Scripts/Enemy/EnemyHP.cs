@@ -22,11 +22,12 @@ public class EnemyHP : MonoBehaviour, IDamageable
 
     void Awake()
     {
+        // Initialize runtime Health Points from inspector value.
         currentHP = startHP;
         RegisterThisEnemy();
     }
 
-    // Called by weapons/explosions and etc. to apply damage to this enemy.
+    // Called by weapons to apply damage to this enemy.
     public void TakeDamage(int amount)
     {
         currentHP -= amount;

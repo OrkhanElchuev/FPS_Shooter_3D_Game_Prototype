@@ -1,5 +1,11 @@
 using UnityEngine;
 
+/// <summary>
+/// Abstract base class for all pickup items. Handles rotation visuals,
+/// player trigger detection, and cleanup, while allowing derived classes
+/// to define their specific pickup behavior.
+/// </summary>
+
 public abstract class Pickup : MonoBehaviour
 {
     [SerializeField] float rotationSpeed = 100f;
