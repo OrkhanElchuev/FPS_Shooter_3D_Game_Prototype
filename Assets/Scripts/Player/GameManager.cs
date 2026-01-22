@@ -10,6 +10,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    static GameManager instance;
+
     [Header("References")]
     [Tooltip("UI text displaying enemies alive.")]
     [SerializeField] TMP_Text enemiesLeftText;
@@ -21,6 +23,10 @@ public class GameManager : MonoBehaviour
     // Number of currently active spawners. SpawnEnemy registers/unregisters.
     public static int ActiveSpawners { get; private set; }
 
+    void Awake()
+    {
+        instance = this;
+    }
     void OnEnable()
     {
         // Subscribe UI to enemy count updates.
@@ -40,29 +46,36 @@ public class GameManager : MonoBehaviour
 
         // Initialize UI display with current enemy count.
         UpdateEnemiesText(EnemyManager.AliveEnemies);
+        CheckWinCondition();
     }
 
     public static void RegisterSpawner()
     {
         ActiveSpawners++;
+        instance?.CheckWinCondition();
     }
 
     public static void UnregisterSpawner()
     {
         ActiveSpawners--;
         ActiveSpawners = Mathf.Max(ActiveSpawners, 0);
+        instance?.CheckWinCondition();
+    }
+
+    void CheckWinCondition()
+    {
+        // Win only when no enemies AND no spawners remain.
+        if (EnemyManager.AliveEnemies <= 0 && ActiveSpawners <= 0)
+        {
+            youWinText.SetActive(true);
+        }
     }
 
     void UpdateEnemiesText(int aliveEnemies)
     {
         // Update UI with current alive enemy count.
         enemiesLeftText.text = ENEMIES_LEFT_STRING + aliveEnemies;
-
-        // Win only when no enemies AND no spawners remain.
-        if (aliveEnemies <= 0 && ActiveSpawners <= 0)
-        {
-            youWinText.SetActive(true);
-        }
+        CheckWinCondition();
     }
 
     public void RestartLevelButton()
