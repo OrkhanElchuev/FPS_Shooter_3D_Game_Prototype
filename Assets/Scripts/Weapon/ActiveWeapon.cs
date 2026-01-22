@@ -82,7 +82,7 @@ public class ActiveWeapon : MonoBehaviour
             Destroy(currentWeapon.gameObject);
         }
 
-        Weapon newWeapon = Instantiate(weaponSO.weaponPrefab, transform).GetComponent<Weapon>();
+        Weapon newWeapon = Instantiate(weaponSO.WeaponPrefab, transform).GetComponent<Weapon>();
         currentWeapon = newWeapon;
         this.currentWeaponSO = weaponSO;
 
@@ -122,7 +122,7 @@ public class ActiveWeapon : MonoBehaviour
             playerFollowCamera.m_Lens.FieldOfView = currentWeaponSO.ZoomAmount;
             weaponCamera.fieldOfView = currentWeaponSO.ZoomAmount;
             zoomEffectVignette.SetActive(true);
-            firstPersonController.ChangeRotationSpeed(currentWeaponSO.zoomRotationSpeed);
+            firstPersonController.ChangeRotationSpeed(currentWeaponSO.ZoomRotationSpeed);
         }
         else
         {
