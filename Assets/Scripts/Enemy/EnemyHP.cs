@@ -1,5 +1,11 @@
 using UnityEngine;
 
+/// <summary>
+/// Health component for enemies that must be tracked by the EnemyManager.
+/// Handles damage, death VFX, and registering, unregistering from the global
+/// enemy count used for spawn limits and win conditions.
+/// </summary>
+
 [DisallowMultipleComponent]
 public class EnemyHP : MonoBehaviour, IDamageable
 {

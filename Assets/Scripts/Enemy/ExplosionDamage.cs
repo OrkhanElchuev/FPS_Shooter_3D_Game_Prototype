@@ -1,5 +1,10 @@
 using UnityEngine;
-using UnityEngine.Rendering;
+
+/// <summary>
+/// Applies a one-time area-of-effect damage burst (explosion).
+/// Uses a physics overlap check to detect player within a radius
+/// and applies randomized damage once, then disables itself.
+/// </summary>
 
 public class ExplosionDamage : MonoBehaviour
 {
